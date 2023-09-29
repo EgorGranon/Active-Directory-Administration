@@ -2,10 +2,10 @@
 
 |     | Description |
 |-----|-------------|
-| 1-  | Manage Users | 
-| 2-  | Manage Groups and Other Organizational Units | 
-| 3-  | Manage Group Policy Objects |
-| 4-  | Add and Remove Computers To The Domain | 
+| 1-  | Gérer les utilisateurs | 
+| 2-  | Gérer les groupes et OU | 
+| 3-  | Gérer les GPO |
+| 4-  | Ajouter et supprimer des ordinateurs du domaine | 
 
 ## 1 - Manage Users
 
@@ -152,7 +152,12 @@ Emplacement des paramètres de la stratégie de mot de passe = Configuration ord
 
 PowerShell rejoindre un Domain: 
 
-<code>PS C:\htb> Add-Computer -DomainName INLANEFREIGHT.LOCAL -Credential INLANEFREIGHT\HTB-student_adm -Restart</code>
+<code>Add-Computer -DomainName "NomDuDomaine" -Credential (Get-Credential) -Restart</code>
 
-Cette chaîne utilise le domaine (INLANEFREIGHT.LOCAL) auquel nous souhaitons joindre l'hôte, et nous devons spécifier l'utilisateur dont les informations d'identification seront utilisées pour autoriser la connexion (HTB-student_adm). Spécifier le redémarrage dans la chaîne est nécessaire car la connexion ne se fera pas tant que l'hôte ne redémarrera pas à nouveau, ce qui lui permettra d'acquérir les paramètres et les stratégies du domaine.
+Cette cmdlet ajoute l'ordinateur actuel au domaine spécifié par "NomDuDomaine". Vous serez invité à fournir les informations d'identification d'un utilisateur disposant des droits pour ajouter des ordinateurs au domaine. L'option -Restart redémarre l'ordinateur après son ajout au domaine pour appliquer les modifications.
 
+Assurez-vous de remplacer "NomDuDomaine" par le nom réel de votre domaine et de fournir les informations d'identification appropriées lorsque vous êtes invité à le faire.
+
+Supprimer un ordinateur du domaine :
+
+<code>Remove-Computer -UnjoinDomainCredential (Get-Credential) -Restart</code>
